@@ -1,0 +1,14 @@
+{
+  "name": "pipe-wrench",
+  "version": "0.1.0",
+  "description": "Generic, cross-platform IPC streams. Uses named pipes on windows and unix sockets elsewhere",
+  "main": "index.js",
+  "keywords": [
+    "pipe",
+    "named",
+    "socket",
+    "tmp"
+  ],
+  "author": "Stephen Scott <me@suchipi.com> (http://suchipi.com)",
+  "license": "ISC"
+}
