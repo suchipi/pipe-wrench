@@ -1,6 +1,6 @@
 {
   "name": "pipe-wrench",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Generic, cross-platform IPC streams. Uses named pipes on windows and unix sockets elsewhere",
   "main": "index.js",
   "keywords": [
@@ -10,5 +10,13 @@
     "tmp"
   ],
   "author": "Stephen Scott <me@suchipi.com> (http://suchipi.com)",
-  "license": "ISC"
+  "license": "ISC",
+  "homepage": "https://github.com/suchipi/pipe-wrench#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suchipi/pipe-wrench.git"
+  },
+  "bugs": {
+    "url": "https://github.com/suchipi/pipe-wrench/issues"
+  }
 }

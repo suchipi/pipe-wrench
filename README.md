@@ -12,15 +12,17 @@ $ npm install --save pipe-wrench
 
 Server:
 ```js
-const { server, cleanup } = require("pipe-wrench");
+const { server } = require("pipe-wrench");
 
-server("some-unique-identifier", (socket) => {
+const cleanup = server("some-unique-identifier", (socket) => {
   // This callback gets called whenever a client connects.
   // socket is a node net.Socket.
 });
+// Returns a cleanup function that removes the unix socket on unix systems
+// and is a no-op on win32 (named pipes are automatically cleaned up).
 
 process.on("exit", () => {
-  cleanup(); // Cleans up sockets that were created by pipe-wrench.
+  cleanup(); // If you forget to call this, on unix systems, an unused socket will remain in /tmp.
 });
 ```
 

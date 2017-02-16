@@ -1,10 +1,9 @@
-const net = require("net");
-const fs = require("fs");
-const os = require("os");
-const path = require("path");
+var net = require("net");
+var fs = require("fs");
+var os = require("os");
+var path = require("path");
 
-const isWin = (process.platform === "win32");
-const filesToRemove = new Set();
+var isWin = (process.platform === "win32");
 
 function getSocketName(uniqueIdentifier) {
   if (isWin) {
@@ -15,11 +14,8 @@ function getSocketName(uniqueIdentifier) {
 }
 
 function server(uniqueIdentifier, connectionCallback, closeCallback) {
-  const socketName = getSocketName(uniqueIdentifier);
-  if (!isWin) {
-    filesToRemove.add(socketName);
-  }
-  const server = net.createServer();
+  var socketName = getSocketName(uniqueIdentifier);
+  var server = net.createServer();
   server.on("connection", connectionCallback);
 
   if (closeCallback) {
@@ -27,20 +23,21 @@ function server(uniqueIdentifier, connectionCallback, closeCallback) {
   }
 
   server.listen(socketName);
-}
 
-function cleanup() {
-  if (isWin) { return; } // named pipes are automatically removed
-  filesToRemove.forEach(fs.unlinkSync);
+  return function cleanup() {
+    if (isWin) { return; } // named pipes are automatically removed
+    if (fs.existsSync(socketName)) {
+      fs.unlinkSync(socketName);
+    }
+  };
 }
 
 function client(uniqueIdentifier) {
-  const socketName = getSocketName(uniqueIdentifier);
+  var socketName = getSocketName(uniqueIdentifier);
   return net.connect(socketName);
 }
 
 module.exports = {
-  server,
-  client,
-  cleanup,
+  server: server,
+  client: client,
 }
